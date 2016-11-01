@@ -1,4 +1,4 @@
-	</div>
+	
 	<?php wp_footer(); 
 	$theme_data = wp_get_theme("Argo"); 
 	$author_name = $theme_data->get('Author');

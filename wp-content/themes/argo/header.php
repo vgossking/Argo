@@ -6,21 +6,23 @@
         <meta charset="<?php bloginfo( 'charset' ); ?>" />
         <link rel="profile" href="http://gmgp.org/xfn/11" />
         <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-        <link rel="stylesheet" href="<?php  echo get_stylesheet_directory_uri()."/style.css"; ?>" />
- 
+        <link rel="stylesheet" href="<?php  echo get_stylesheet_directory_uri()."/assets/css/style.css"; ?>" />
+        <link rel="stylesheet" href="<?php  echo get_stylesheet_directory_uri()."/assets/css/responsive.css"; ?>" />
         <?php wp_head();?>
 </head>
 
 <body <?php body_class(); ?> > <!--Thêm class tượng trưng cho mỗi trang lên <body> để tùy biến-->
-      
-              <header id="header">
 
-              </header>
-              	<div id="navbar" class="navbar navbar-fixed-top">
+              	<div id="navbar" class="navbar ">
                   <div class="navbar-inner">
                     <div class="container">
+                    <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
                        <?php argo_logo(); ?>
-                      <div class ="nav-collapse collapse" style="height: 0">
+                      <div class ="nav-collapse collapse" >
                      
                       <?php
                           $args = array(
@@ -36,5 +38,12 @@
                      
                   </div>
                 </div>
-                <div class="container">
+                <?php /*if(is_home()): ?>
+                    <div id="slider">
+                      <div class="">
+                        
+                      </div>
+                    </div>
+                <?php endif; ?>*/
+              
                

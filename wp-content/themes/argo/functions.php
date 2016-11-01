@@ -58,8 +58,9 @@
                                 'gallery'
                         )
                  );
- 
-                /*
+                // create excerpt for page
+                add_post_type_support('page', 'excerpt');
+                          /*
                  * Thêm chức năng custom background
                  */
                 $default_background = array(
@@ -112,13 +113,219 @@
 	  <?php }
   }
 
-  if ( ! function_exists( 'argo_menu' ) ) {
-  function argo_menu( $slug ) {
-    $menu = array(
-      'theme_location' => $slug,
-      'container' => 'nav',
-      'container_class' => $slug,
+function customizer_service( $wp_customize ) {
+ 
+        // Tạo section
+    $wp_customize->add_section (
+        'section_service',
+        array(
+            'title' => 'Section: Service',
+            'description' => 'Option for Service',
+            'priority' => 25
+        )
     );
-    wp_nav_menu( $menu );
-  }
+    //display the section or not
+    $wp_customize->add_setting(
+      'service_display',
+      array(
+        'default' => 'Yes'
+        )
+      );
+    $wp_customize->add_control(
+      'control_service_display',
+      array(
+        'label' => 'Do you want to hide this section? ',
+        'type' => 'radio',
+        'section' => 'section_service',
+        'settings' => 'service_display',
+        'choices'=> array(
+          true => 'Yes',
+          false => 'No'
+          )
+        )
+      );
+    //section id attribute
+    $wp_customize->add_setting (
+            'section_service_id',
+            array(
+                'default' => 'service'
+            )
+        );
+         $wp_customize->add_control (
+            'control_section_service_id',
+            array(
+                'label' => 'Section ID',
+                'section' => 'section_service',
+                'type' => 'text',
+                'description' => ' use for anchor link',
+                'settings' => 'section_service_id'
+            )
+          );
+    //section title attribute
+    $wp_customize->add_setting (
+            'service_title',
+            array(
+                'default' => 'Gentle WordPress Theme'
+            )
+        );
+ 
+
+        $wp_customize->add_control (
+            'control_service_title',
+            array(
+                'label' => 'Title',
+                'section' => 'section_service',
+                'type' => 'text',
+                'settings' => 'service_title'
+            )
+        );
+        //section subtitle attribute
+     
+        $wp_customize->add_setting (
+        'service_subtitle',
+        array(
+            'default' => "WordPress theme in it's most beautiful form ever"
+          )
+        );
+         $wp_customize->add_control (
+            'control_service_subtitle',
+            array(
+                'label' => 'Subtitle',
+                'section' => 'section_service',
+                'type' => 'text',
+                'settings' => 'service_subtitle'
+            )
+        );
+         //service one
+         $wp_customize->add_setting(
+            'service_one'
+        );
+ 
+        $wp_customize->add_control(
+          'service_one',
+          array(
+              'type' => 'dropdown-pages',
+              'label' => 'Choose Page Service One:',
+              'section' => 'section_service',
+          )
+        );
+        //icon 1
+         $wp_customize->add_setting(
+            'icon_service_one'
+        );
+ 
+        $wp_customize->add_control(
+          'icon_service_one',
+          array(
+              'type' => 'text',
+              'label' => 'Choose Icon Service One:',
+              'section' => 'section_service',
+              'description' => 'Choose a li icon from <a href="http://bootstrapmaster.com/live/one/linecons.html">here</a>'
+          )
+        );
+        //service 2
+        $wp_customize->add_setting(
+            'service_two'
+        );
+ 
+        $wp_customize->add_control(
+          'service_two',
+          array(
+              'type' => 'dropdown-pages',
+              'label' => 'Choose Page Service Two:',
+              'section' => 'section_service',
+          )
+        );
+        //icon 2
+         $wp_customize->add_setting(
+            'icon_service_two'
+        );
+ 
+        $wp_customize->add_control(
+          'icon_service_two',
+          array(
+              'type' => 'text',
+              'label' => 'Choose Icon Service Two:',
+              'section' => 'section_service',
+              'description' => 'Choose a li icon from <a href="http://bootstrapmaster.com/live/one/linecons.html">here</a>'
+          )
+        );
+        //service 3
+        $wp_customize->add_setting(
+            'service_three'
+        );
+ 
+        $wp_customize->add_control(
+          'service_three',
+          array(
+              'type' => 'dropdown-pages',
+              'label' => 'Choose Page Service Three:',
+              'section' => 'section_service',
+          )
+        );
+        //icon 3
+         $wp_customize->add_setting(
+            'icon_service_three'
+        );
+ 
+        $wp_customize->add_control(
+          'icon_service_three',
+          array(
+              'type' => 'text',
+              'label' => 'Choose Icon Service Three:',
+              'section' => 'section_service',
+              'description' => 'Choose a li icon from <a href="http://bootstrapmaster.com/live/one/linecons.html">here</a>'
+          )
+        );
+ 
 }
+add_action( 'customize_register', 'customizer_service' );
+
+function customizer_portofolio($wp_customize){
+  $wp_customize ->add_section( 
+       'section_portfolio',
+        array(
+            'title' => 'Section: Portfolio',
+            'description' => 'Option for Portfolio',
+            'priority' => 26
+        )
+  );
+  //display section?
+  $wp_customize->add_setting(
+      'portfolio_display',
+      array(
+        'default' => 'Yes'
+        )
+      );
+    $wp_customize->add_control(
+      'control_portfolio_display',
+      array(
+        'label' => 'Do you want to hide this section? ',
+        'type' => 'radio',
+        'section' => 'section_portfolio',
+        'settings' => 'portfolio_display',
+        'choices'=> array(
+          true => 'Yes',
+          false => 'No'
+          )
+        )
+      );
+    //section id
+   $wp_customize->add_setting (
+            'section_portfolio_id',
+            array(
+                'default' => 'portfolios'
+            )
+        );
+         $wp_customize->add_control (
+            'control_section_portfolio_id',
+            array(
+                'label' => 'Posrfolio ID',
+                'section' => 'section_portfolio',
+                'type' => 'text',
+                'description' => ' use for anchor link',
+                'settings' => 'section_portfolio_id'
+            )
+          );
+}
+add_action( 'customize_register', 'customizer_portofolio' );
