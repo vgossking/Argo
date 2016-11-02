@@ -327,5 +327,109 @@ function customizer_portofolio($wp_customize){
                 'settings' => 'section_portfolio_id'
             )
           );
+    //section Title
+         $wp_customize->add_setting (
+            'portfolio_title',
+            array(
+                'default' => 'Portfolio'
+            )
+        );
+ 
+
+        $wp_customize->add_control (
+            'control_portfolio_title',
+            array(
+                'label' => 'Title',
+                'section' => 'section_portfolio',
+                'type' => 'text',
+                'settings' => 'portfolio_title'
+            )
+        );
+        //section subtitle attribute
+     
+        $wp_customize->add_setting (
+        'portfolio_subtitle',
+        array(
+            'default' => "Check out our portfolio and click to see them."
+          )
+        );
+         $wp_customize->add_control (
+            'control_portfolio_subtitle',
+            array(
+                'label' => 'Subtitle',
+                'section' => 'section_portfolio',
+                'type' => 'text',
+                'settings' => 'portfolio_subtitle'
+            )
+        );
 }
 add_action( 'customize_register', 'customizer_portofolio' );
+
+function ShowCategories($parent_category) {
+  $categories = get_categories(array('parent' => $parent_category, 'hide_empty' => 0));  
+                  
+                foreach ($categories as $category) {
+                  if($category->cat_name != "Uncategorized"){
+                    ?>
+                        <li>
+                          <a href="" data-filter=".<?php echo $category->slug ?>" >
+                          <?php echo $category->cat_name;
+                          ShowCategories($category->cat_ID);
+                          ?>
+                          </a>
+                        </li>
+                    <?php
+                  }
+                }
+             
+}
+
+function GetPostByCategory($category){
+    $category_id = get_cat_ID($category);
+    $args = array(
+      'category' => $category_id
+      );
+    $myposts = get_posts( $args );
+    foreach ( $myposts as $post ) : ?>
+        <li>
+            <a href="<?php the_permalink(); ?>"><?php echo $post->post_title; ?></a>
+        </li>
+    <?php endforeach; 
+    wp_reset_postdata();
+}
+
+function GetPostArgo(){
+   $args = array(
+  'posts_per_page'   => 18,
+  'offset'           => 0
+);
+  $myposts = get_posts($args);
+   if (have_posts()) : foreach ( $myposts as $post ) :
+    $category_id = wp_get_post_categories($post->ID)[0];
+    $category_name = get_cat_name($category_id); 
+    ?>
+      
+      <li class="item brick1 <?php echo strtolower($category_name);?> active">
+        <a href="#modalbox" data-toggle="modal">
+          <img src="<?php echo get_the_post_thumbnail($post->ID) ?>" alt="Portfolio1">
+
+          <div class="hover">
+            <img src="wp-content/themes/argo/assets/img/ico_search.png" alt="">
+            <h4><?php echo $post->post_title; ?></h4>
+            <p><?php echo $category_name; ?></p>
+            </div>
+        </a>
+      </li>
+      <?php endforeach; else : ?>
+
+
+  <!-- The very first "if" tested to see if there were any Posts to -->
+  <!-- display.  This "else" part tells what do if there weren't any. -->
+  <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+
+
+  <!-- REALLY stop The Loop. -->
+ <?php endif;
+}
+                
+     
