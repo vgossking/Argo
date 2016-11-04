@@ -18,15 +18,7 @@
 			<div class="modal-body">
 				 <div id="myCarousel" class="carousel slide">
 	                <div class="carousel-inner">
-	                  <div class="item active">
-	                    <img src="wp-content/themes/argo/assets/img/demo4.png" alt="">
-	                   </div>
-	                  <div class="item">
-	                    <img src="wp-content/themes/argo/assets/img/demo2.png" alt="">
-	                  </div>
-	                  <div class="item">
-	                    <img src="wp-content/themes/argo/assets/img/demo3.png" alt="">
-	                  </div>
+	                 <?php GetPostArgo(1) ?>
 	                </div>
 	                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 	                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
@@ -40,7 +32,7 @@
 			</div>
 		</div>
 		<ul class = "isotope clearfix">
-			<?php GetPostArgo();?>
+			<?php GetPostArgo(0);?>
 		</ul>
 		<!--<ul class="isotope clearfix">
 			<li class="item brick1 living kitchen">

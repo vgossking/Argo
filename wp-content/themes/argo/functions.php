@@ -398,17 +398,32 @@ function GetPostByCategory($category){
     wp_reset_postdata();
 }
 
-function GetPostArgo(){
+//param typeDisplay =1 for gallery, 0 for modal box
+function GetPostArgo($typeDisplay){
    $args = array(
   'posts_per_page'   => 18,
   'offset'           => 0
 );
   $myposts = get_posts($args);
    if (have_posts()) : foreach ( $myposts as $post ) :
-    $category_id = wp_get_post_categories($post->ID)[0];
+    $category_id = wp_get_post_categories($post->ID)[0];//get the first category 
     $category_name = get_cat_name($category_id); 
-    ?>
-      
+    $args = array(
+                'post_parent' => $post->ID,
+                'post_status' => 'inherit',
+                'post_type'=> 'attachment',
+                'post_mime_type' => 'image/jpeg,image/gif,image/jpg,image/png'                  
+            );
+    $attachments = new WP_Query($args);
+    $imagePost = $attachments->posts;
+    $imagePostNumber = count($imagePost);
+    if($imagePostNumber > 0){
+      $imageAttachLink = $imagePost[0]->guid;
+    }
+    else $imageAttachLink = null;
+    //var_dump($imagePost);
+    if($typeDisplay == 0):
+    ?>   
       <li class="item brick1 <?php echo strtolower($category_name);?> active">
         <a href="#modalbox" data-toggle="modal">
           <img src="<?php echo get_the_post_thumbnail($post->ID) ?>" alt="Portfolio1">
@@ -420,7 +435,22 @@ function GetPostArgo(){
             </div>
         </a>
       </li>
-      <?php endforeach; else : ?>
+    <?php else: ?>
+      <?php if ($post->ID == $myposts[0]->ID && $imageAttachLink != null): ?>
+       <div class="item active">
+      
+        <img src="<?php echo $imageAttachLink ?>" alt="">
+        
+       </div>
+     <?php else: ?>
+      <div class="item">
+        
+          <img src="<?php echo $imageAttachLink ?>" alt="">
+       
+       </div>
+      <?php endif;endif; ?>
+ 
+  <?php endforeach; else : ?>
 
 
   <!-- The very first "if" tested to see if there were any Posts to -->
