@@ -23,10 +23,7 @@
 	                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
 	                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
 	              </div>
-	              <h3>Argo project title living room</h3>
-	              <p>
-	              	Maecenas lectus tellus, faucibus id auctor vitae, egestas nec turpis. Proin accumsan interdum lacus nec convallis. Sed vestibulum placerat auctor. 
-	              </p>
+	              
 			</div>
 			<div class="modal-footer">
 			</div>

@@ -440,13 +440,19 @@ function GetPostArgo($typeDisplay){
        <div class="item active">
       
         <img src="<?php echo $imageAttachLink ?>" alt="">
-        
+         <h3><?php echo $post->post_title; ?></h3>
+                <p>
+                  <?php echo $post->post_excerpt; ?> 
+                </p>
        </div>
      <?php else: ?>
       <div class="item">
         
           <img src="<?php echo $imageAttachLink ?>" alt="">
-       
+          <h3><?php echo $post->post_title; ?></h3>
+                <p>
+                  <?php echo $post->post_excerpt; ?> 
+                </p>
        </div>
       <?php endif;endif; ?>
  
