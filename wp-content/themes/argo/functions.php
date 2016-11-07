@@ -364,7 +364,7 @@ function customizer_portofolio($wp_customize){
         );
 }
 add_action( 'customize_register', 'customizer_portofolio' );
-
+//get param parent category(shold be 0)
 function ShowCategories($parent_category) {
   $categories = get_categories(array('parent' => $parent_category, 'hide_empty' => 0));  
                   
@@ -374,7 +374,7 @@ function ShowCategories($parent_category) {
                         <li>
                           <a href="" data-filter=".<?php echo $category->slug ?>" >
                           <?php echo $category->cat_name;
-                          ShowCategories($category->cat_ID);
+                          ShowCategories($category->cat_ID);//get the children category
                           ?>
                           </a>
                         </li>
@@ -461,5 +461,107 @@ function GetPostArgo($typeDisplay){
   <!-- REALLY stop The Loop. -->
  <?php endif;
 }
-                
-     
+
+function argo_theme_style(){
+  wp_enqueue_script('jquery',get_stylesheet_directory_uri()."/assets/js/jquery.js",array(), null, true);
+  wp_enqueue_style( 'style', get_stylesheet_directory_uri()."/assets/css/style.css" );
+  wp_enqueue_style( 'responsive', get_stylesheet_directory_uri()."/assets/css/responsive.css" );
+  wp_enqueue_script('bs-modal',get_stylesheet_directory_uri()."/assets/js/bootstrap-modal.js"  , array(), null, true);
+  wp_enqueue_script('bs-transition',get_stylesheet_directory_uri()."/assets/js/bootstrap-transition.js"  , array(), null, true);
+  wp_enqueue_script('bs-carousel',get_stylesheet_directory_uri()."/assets/js/bootstrap-carousel.js"  , array(), null, true);
+  wp_enqueue_script('bs-collapse',get_stylesheet_directory_uri()."/assets/js/bootstrap-collapse.js"  , array(), null, true);
+  wp_enqueue_script('bs-scrollspy',get_stylesheet_directory_uri()."/assets/js/bootstrap-scrollspy.js"  , array(), null, true);
+  wp_enqueue_script('CustomScrollbar',get_stylesheet_directory_uri()."/assets/js/jquery.mCustomScrollbar.concat.min.js"  , array(), null, true);
+  wp_enqueue_script('mousewheel',get_stylesheet_directory_uri()."/assets/js/jquery.mousewheel.min.js"  , array(), null, true);
+  wp_enqueue_script('hoverdir',get_stylesheet_directory_uri()."/assets/js/jquery.hoverdir.js"  , array(), null, true);
+  
+  wp_enqueue_script('isotope',get_stylesheet_directory_uri()."/assets/js/jquery.isotope.min.js"  , array(), null, true);
+  wp_enqueue_script('main',get_stylesheet_directory_uri()."/assets/js/main.js"  , array(), null, true);
+}
+add_action('wp_enqueue_scripts','argo_theme_style');
+
+//Purchase section                
+function customizer_purchase( $wp_customize ) {
+
+  // Tạo section
+  $wp_customize->add_section (
+    'section_purchase',
+    array(
+        'title' => 'Section: Purchase',
+        'description' => 'Option for Service',
+        'priority' => 33
+    )
+  );
+  //display the section or not
+  $wp_customize->add_setting(
+  'purchase_display',
+  array(
+    'default' => 'Yes'
+    )
+  );
+  $wp_customize->add_control(
+  'control_purchase_display',
+  array(
+    'label' => 'Do you want to hide this section? ',
+    'type' => 'radio',
+    'section' => 'section_purchase',
+    'settings' => 'purchase_display',
+    'choices'=> array(
+      true => 'Yes',
+      false => 'No'
+      )
+    )
+  );
+  $wp_customize->add_setting (
+            'purchase_title',
+            array(
+                'default' => 'great one page theme'
+            )
+        );
+ 
+
+        $wp_customize->add_control (
+            'control_portfolio_title',
+            array(
+                'label' => 'Title',
+                'section' => 'section_purchase',
+                'type' => 'text',
+                'settings' => 'purchase_title'
+            )
+        );
+  $wp_customize->add_setting( 'purchase_background' );
+ 
+  $wp_customize->add_control(
+      new WP_Customize_Image_Control(
+          $wp_customize,
+          'bg-purchase',
+          array(
+              'label' => 'Background image',
+              'section' => 'section_purchase',
+              'settings' => 'purchase_background'
+          )
+      )
+  );
+  $wp_customize->add_setting( 'purchase_button_one' );
+  $wp_customize->add_control (
+            'control_portfolio_title_one',
+            array(
+                'label' => 'Title button one',
+                'section' => 'section_purchase',
+                'type' => 'text',
+                'settings' => 'purchase_button_one'
+            )
+        );
+   $wp_customize->add_setting( 'purchase_button_two' );
+  $wp_customize->add_control (
+            'control_portfolio_title_two',
+            array(
+                'label' => 'Title button two',
+                'section' => 'section_purchase',
+                'type' => 'text',
+                'settings' => 'purchase_button_two'
+            )
+        );
+
+}
+add_action( 'customize_register', 'customizer_purchase' );
